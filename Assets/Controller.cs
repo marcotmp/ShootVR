@@ -13,7 +13,6 @@ public class Controller : MonoBehaviour {
     {
         //Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        
     }
 
     // Update is called once per frame
