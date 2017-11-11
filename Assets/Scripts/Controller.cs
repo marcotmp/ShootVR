@@ -2,17 +2,22 @@
 using UnityEngine.UI;
 
 public class Controller : MonoBehaviour {
-    public Text textField;
+	public Text scoreText;
     public GameObject target;
     public GameObject theCamera;
+	public GameObject explosionPrefab;
+	public float raycastLenght = 90;
 
     private float rotX;
     private float rotY;
+	private int score = 0;
 
     private void Start()
     {
         //Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+		scoreText.text = "Score: 0";
     }
 
     // Update is called once per frame
@@ -23,30 +28,40 @@ public class Controller : MonoBehaviour {
 
         var mouseX = Input.GetAxis("Mouse X");
         var mouseY = Input.GetAxis("Mouse Y");
-        textField.text = "mouseX " + mouseX + "\n";
         rotX += mouseX*4;
         rotY += mouseY*4;
 
-        theCamera.transform.rotation = Quaternion.Euler(-rotY, rotX, 0f);
+		if (Cursor.lockState == CursorLockMode.Locked)
+	        theCamera.transform.rotation = Quaternion.Euler(-rotY, rotX, 0f);
 
         if (IsTriggered())
         {
             if (Cursor.lockState == CursorLockMode.None)
                 Cursor.lockState = CursorLockMode.Locked;
 
-            target.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            target.transform.localScale = new Vector3(0.11f, 0.11f, 0.11f);
 
             var start = theCamera.transform.position;
-            var end = start + theCamera.transform.forward * 50;
+            var end = start + theCamera.transform.forward * raycastLenght;
             var hitInfo = new RaycastHit();
             var hit = Physics.Linecast(start, end, out hitInfo);
 
             if (hit)
             {
-                textField.text += ("hit with " + hitInfo.collider.tag + "\n");
+				var obj = hitInfo.collider.gameObject;
+				print("Collide with" + obj.tag);
+				if (obj.tag == "Ball")
+				{
+					var objTransform = obj.transform;
+					var explosion = Instantiate(explosionPrefab, objTransform.position, objTransform.rotation);
+					Destroy(obj);
+					Destroy(explosion, 3);
+
+					score++;
+
+					scoreText.text = "Score: " + score;
+				}
             }
-            else
-                textField.text += ("hit with nothing \n");
         }
         else
         {
@@ -63,12 +78,11 @@ public class Controller : MonoBehaviour {
     {
         var value = false;
 
-        if (Input.GetMouseButton(0)) return true;
+        if (Input.GetMouseButtonDown(0)) return true;
 
         if (Input.touchCount > 0)
         {
             var touch = Input.GetTouch(0);
-            textField.text += "Touch " + touch.phase + "\n";
             return true;
         }
 
