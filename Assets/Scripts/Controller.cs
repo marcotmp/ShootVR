@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Controller : MonoBehaviour {
+public class Controller : MonoBehaviour 
+{
     public Text textField;
     public GameObject target;
     public GameObject theCamera;
@@ -11,30 +12,32 @@ public class Controller : MonoBehaviour {
 
     private void Start()
     {
-        //Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
-    void Update () {
-
+    void Update () 
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
             Cursor.lockState = CursorLockMode.None;
 
-        var mouseX = Input.GetAxis("Mouse X");
-        var mouseY = Input.GetAxis("Mouse Y");
-        textField.text = "mouseX " + mouseX + "\n";
-        rotX += mouseX*4;
-        rotY += mouseY*4;
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            var mouseX = Input.GetAxis("Mouse X");
+            var mouseY = Input.GetAxis("Mouse Y");
+            //textField.text = "mouseX " + mouseX + "\n";
+            rotX += mouseX * 4;
+            rotY += mouseY * 4;
 
-        theCamera.transform.rotation = Quaternion.Euler(-rotY, rotX, 0f);
+            theCamera.transform.rotation = Quaternion.Euler(-rotY, rotX, 0f);
+        }
 
         if (IsTriggered())
         {
             if (Cursor.lockState == CursorLockMode.None)
                 Cursor.lockState = CursorLockMode.Locked;
 
-            target.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            //target.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
             var start = theCamera.transform.position;
             var end = start + theCamera.transform.forward * 50;
@@ -43,14 +46,21 @@ public class Controller : MonoBehaviour {
 
             if (hit)
             {
-                textField.text += ("hit with " + hitInfo.collider.tag + "\n");
+                Debug.Log(hitInfo.collider.tag);
+                if (hitInfo.collider.tag == "Duck")
+                {
+                    var duck = hitInfo.collider.GetComponent<Duck>();
+                    duck.Hit();
+                }
             }
             else
-                textField.text += ("hit with nothing \n");
+            {
+                //textField.text += ("hit with nothing \n"); 
+            }
         }
         else
         {
-            target.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            //target.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         }
     }
 
