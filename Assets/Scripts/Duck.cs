@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Duck : MonoBehaviour 
+public class Duck : MonoBehaviour
 {
-    
+
     public Animator animator;
     public float fallingSpeed = 0.1f;
     public float flySpeed = 0.1f;
+    public Vector3 topLeft;
+    public Vector3 bottomRight;
 
     private DuckStates state;
     private Vector3 movement;
@@ -19,31 +21,38 @@ public class Duck : MonoBehaviour
         Hit
     }
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start()
     {
         state = DuckStates.Flying;
+        movement = new Vector3(0.5f, 1);
 
-        // SelectRandomMovement();
-        movement = new Vector3(0.5f, 1, 0); // 60dg
-	}
-	
-	// Update is called once per frame
-	void Update () 
+        print("state= " + state + " , movment= " + movement);
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-        switch(state)
+        switch (state)
         {
             case DuckStates.Flying:
-                
-                transform.position += movement * flySpeed;
 
+                transform.position += movement * flySpeed * Time.deltaTime;
+                //print("state= " + state + " , movment= " + movement);
                 // check if it is time to select another move or if collide with borders
-                if (TimeElapsed() || !CanMove())
+
+                var time = TimeElapsed();
+                var canMove = CanMove();
+
+                //if (!canMove) print("Can't move " + canMove);
+
+                //if (time)// || !CanMove())
+                if (!canMove)
                     ChangeMovement();
 
                 break;
             case DuckStates.Hit: break;
-            case DuckStates.Falling: 
+            case DuckStates.Falling:
                 transform.position -= Vector3.up * fallingSpeed;
                 // if touch ground, destroy object
                 if (transform.position.y <= 0)
@@ -52,8 +61,8 @@ public class Duck : MonoBehaviour
                 }
                 break;
         }
-       
-	}
+
+    }
 
     public void Hit()
     {
@@ -69,7 +78,7 @@ public class Duck : MonoBehaviour
     }
 
     private float timeElapsed = 0;
-    private float delay = 2; 
+    private float delay = 2;
     private bool TimeElapsed()
     {
         timeElapsed += Time.deltaTime;
@@ -85,6 +94,31 @@ public class Duck : MonoBehaviour
     private bool CanMove()
     {
         // check if can move based on position and movement
+
+        var pos = transform.position;
+        var nextPos = pos + movement;
+
+        //Debug.Log("movement= " +movement 
+                 // + "\npos= " + pos 
+                 // + "\nnextPos= " + nextPos 
+                 // + "\ntopLeft= " + topLeft 
+                 // + "\nbottomRight= " + bottomRight
+                 // + "\nright=" + (movement.x > 0 && nextPos.x > bottomRight.x)
+                 // + "\nleft=" + (movement.x < 0 && nextPos.x < topLeft.x)
+                 // + "\ntop=" + (movement.y > 0 && nextPos.y > topLeft.y)
+                 // + "\nbottom=" + (movement.y < 0 && nextPos.y > bottomRight.y)
+                 //);
+
+        //new Bounds().Contains(pos);
+
+        // x movement
+        if (movement.x > 0 && nextPos.x > bottomRight.x) return false;
+        else if (movement.x < 0 && nextPos.x < topLeft.x) return false;
+
+        // y movement
+        if (movement.y > 0 && nextPos.y > topLeft.y) return false;
+        else if (movement.y < 0 && nextPos.y < bottomRight.y) return false;
+
         return true;
     }
 
@@ -108,25 +142,41 @@ public class Duck : MonoBehaviour
 
     private void ChangeMovement()
     {
-        var val = Random.Range(0, 11);
-        //print("Selecting " + val);
-        movement = movementList[val];
+        var counter = 0;
+        while (!CanMove() || counter < 100)
+        {
+            counter++;
+            var val = Random.Range(0, movementList.Count);
+            //print("Selecting " + val);
+            movement = movementList[val];
+        }
 
         if (movement.x > 0)
             transform.localScale = new Vector3(1, 1, 1);
         else if (movement.x < 0)
             transform.localScale = new Vector3(-1, 1, 1);
-        
+
 
         // if right or left
-        if (movement.x != 0 && movement.y == 0.0f)
-            animator.Play("Right");
+        if (movement.x != 0 && Mathf.Abs(movement.y) <= 0.5f)
+        {
+            animator.Play("FlyRight");
+            print("FlyRight");
+        }   
+        
 
         // if up
-        else if (movement.y == 0 && movement.y == 1f )
+        else if (movement.x == 0 && movement.y == 1)
         {
             transform.localScale = new Vector3(1, 1, 1);
-            animator.Play("Up");
+            animator.Play("FlyUp");
+            print("FlyUp");
+        }
+
+        if (Mathf.Abs(movement.y) == 1 && Mathf.Abs(movement.x) == 0.5f)
+        {
+            animator.Play("FlyUpRight");
+            print("FlyUpRight");
         }
 
         print("" + movement + "  " + "");

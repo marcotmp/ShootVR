@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class Controller : MonoBehaviour 
 {
-    public Text textField;
+    public DuckCreator[] creators;
     public GameObject target;
     public GameObject theCamera;
 
@@ -25,7 +25,6 @@ public class Controller : MonoBehaviour
         {
             var mouseX = Input.GetAxis("Mouse X");
             var mouseY = Input.GetAxis("Mouse Y");
-            //textField.text = "mouseX " + mouseX + "\n";
             rotX += mouseX * 4;
             rotY += mouseY * 4;
 
@@ -53,14 +52,6 @@ public class Controller : MonoBehaviour
                     duck.Hit();
                 }
             }
-            else
-            {
-                //textField.text += ("hit with nothing \n"); 
-            }
-        }
-        else
-        {
-            //target.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         }
     }
 
@@ -78,7 +69,6 @@ public class Controller : MonoBehaviour
         if (Input.touchCount > 0)
         {
             var touch = Input.GetTouch(0);
-            textField.text += "Touch " + touch.phase + "\n";
             return true;
         }
 

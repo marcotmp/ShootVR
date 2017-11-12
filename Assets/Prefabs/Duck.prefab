@@ -85,7 +85,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95843070673958146}
   fallingSpeed: 0.5
-  flySpeed: 0.2
+  flySpeed: 8
+  topLeft: {x: 0, y: 0, z: 0}
+  bottomRight: {x: 0, y: 0, z: 0}
 --- !u!212 &212743175158285162
 SpriteRenderer:
   m_ObjectHideFlags: 1
