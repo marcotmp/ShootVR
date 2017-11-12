@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scene/scene.unity
-    guid: 763bcde9b05d1ac439bba32b6b2b3cd6
+    path: Assets/Scenes/DuckHunt.unity
+    guid: c9cdf5380db0447928e2ba47f46d43b3

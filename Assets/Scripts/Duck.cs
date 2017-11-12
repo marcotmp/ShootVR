@@ -25,9 +25,11 @@ public class Duck : MonoBehaviour
     void Start()
     {
         state = DuckStates.Flying;
-        movement = new Vector3(0.5f, 1);
+        ChangeMovement();
 
         print("state= " + state + " , movment= " + movement);
+
+        flySpeed *= Random.Range(1, 3);
     }
 
     // Update is called once per frame
@@ -47,7 +49,7 @@ public class Duck : MonoBehaviour
                 //if (!canMove) print("Can't move " + canMove);
 
                 //if (time)// || !CanMove())
-                if (!canMove)
+                if (!canMove || time)
                     ChangeMovement();
 
                 break;
@@ -66,6 +68,9 @@ public class Duck : MonoBehaviour
 
     public void Hit()
     {
+        // remove the collider component
+        Destroy(GetComponent<Collider>());
+
         animator.Play("Hit");
         Invoke("Fall", 1);
         state = DuckStates.Hit;

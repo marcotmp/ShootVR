@@ -6,53 +6,72 @@ public class Controller : MonoBehaviour
     public DuckCreator[] creators;
     public GameObject target;
     public GameObject theCamera;
+    public ScorePanel scorePanel;
+    public int hitDistance = 50;
+    public int totalDucksPerRound = 10;
+    public GameObject startBtn;
 
-    private float rotX;
-    private float rotY;
+    private int score = 0;
 
-    private void Start()
+    void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void StartGame()
+    {
+        score = 0;
+
+        AddDuck();
     }
 
     // Update is called once per frame
     void Update () 
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Cursor.lockState = CursorLockMode.None;
-
-        if (Cursor.lockState == CursorLockMode.Locked)
-        {
-            var mouseX = Input.GetAxis("Mouse X");
-            var mouseY = Input.GetAxis("Mouse Y");
-            rotX += mouseX * 4;
-            rotY += mouseY * 4;
-
-            theCamera.transform.rotation = Quaternion.Euler(-rotY, rotX, 0f);
-        }
-
         if (IsTriggered())
         {
-            if (Cursor.lockState == CursorLockMode.None)
-                Cursor.lockState = CursorLockMode.Locked;
-
-            //target.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-
             var start = theCamera.transform.position;
-            var end = start + theCamera.transform.forward * 50;
+            var end = start + theCamera.transform.forward * hitDistance;
             var hitInfo = new RaycastHit();
             var hit = Physics.Linecast(start, end, out hitInfo);
 
             if (hit)
             {
-                Debug.Log(hitInfo.collider.tag);
-                if (hitInfo.collider.tag == "Duck")
+                var colliderHit = hitInfo.collider;
+                Debug.Log(colliderHit.tag);
+                if (colliderHit.tag == "Duck")
                 {
+                    score++;
+
                     var duck = hitInfo.collider.GetComponent<Duck>();
                     duck.Hit();
+                    scorePanel.SetScore(score);
+
+                    if (score < totalDucksPerRound)
+                        Invoke("AddDuck", 1);
+                    else
+                        EndGame();
+                }
+                else if (colliderHit.tag == "StartDuck")
+                {
+                    colliderHit.gameObject.SetActive(false);
+
+                    Invoke("StartGame", 1);
                 }
             }
         }
+    }
+
+    private void AddDuck()
+    {
+        // create a duck in a random place
+        var index = Random.Range(0, creators.Length);
+        creators[index].CreateDuck();
+    }
+
+    private void EndGame()
+    {
+        startBtn.SetActive(true);
     }
 
     private void OnGUI()
@@ -62,16 +81,9 @@ public class Controller : MonoBehaviour
 
     private bool IsTriggered()
     {
-        var value = false;
-
-        if (Input.GetMouseButton(0)) return true;
-
-        if (Input.touchCount > 0)
-        {
-            var touch = Input.GetTouch(0);
+        if (Input.GetMouseButton(0) || Input.touchCount > 0)
             return true;
-        }
-
-        return value;
+        else
+            return false;
     }
 }

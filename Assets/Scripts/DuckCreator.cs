@@ -11,6 +11,10 @@ public class DuckCreator : MonoBehaviour {
 	public void CreateDuck()
     {
         var duckInstance = Instantiate(duckPrefab, transform.position, transform.rotation);
+
+        // make sure the instance is active
+        duckInstance.SetActive(true);
+
         var duck = duckInstance.GetComponent<Duck>();
         duck.topLeft = topLeft.position;
         duck.bottomRight = bottomRight.position;

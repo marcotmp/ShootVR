@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Duck
+  - StartDuck
   layers:
   - Default
   - TransparentFX
