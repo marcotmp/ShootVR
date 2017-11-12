@@ -113,32 +113,22 @@ public class Duck : MonoBehaviour
         movement = movementList[val];
 
         if (movement.x > 0)
-        {
             transform.localScale = new Vector3(1, 1, 1);
-        }
         else if (movement.x < 0)
-        {
             transform.localScale = new Vector3(-1, 1, 1);
-        }
-
-        if (movement.y > 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-        else if  (movement.y < 0)
-        {
-            
-        }
+        
 
         // if right or left
         if (movement.x != 0 && movement.y == 0.0f)
             animator.Play("Right");
 
-
         // if up
-        if (movement.y == 0 && movement.y == 1f )
+        else if (movement.y == 0 && movement.y == 1f )
         {
+            transform.localScale = new Vector3(1, 1, 1);
             animator.Play("Up");
         }
+
+        print("" + movement + "  " + "");
     }
 }
