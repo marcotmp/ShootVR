@@ -41,7 +41,9 @@ public class Duck : MonoBehaviour
         {
             case DuckStates.Flying:
 
-                transform.position += movement * flySpeed * Time.deltaTime;
+                //transform.position += movement * flySpeed * Time.deltaTime;
+                transform.Translate(movement * flySpeed * Time.deltaTime);
+
                 //print("state= " + state + " , movment= " + movement);
                 // check if it is time to select another move or if collide with borders
 
@@ -186,6 +188,6 @@ public class Duck : MonoBehaviour
             print("FlyUpRight");
         }
 
-        print("" + movement + "  " + "");
+        //print("" + movement + "  " + "");
     }
 }

@@ -11,11 +11,13 @@ public class Controller : MonoBehaviour
     public GameObject startPanel;
     public GameObject gameOverPanel;
     public GameObject youWinPanel;
+    public Text youWinPanelScore;
 
     public int hitDistance = 50;
     public int totalDucksPerRound = 10;
 
     private int score = 0;
+    private int bullets = 3;
     private bool isPlaying = false;
 
     void Start()
@@ -27,49 +29,59 @@ public class Controller : MonoBehaviour
     public void StartGame()
     {
         score = 0;
+        bullets = 3;
         scorePanel.SetScore(score);
-
+        scorePanel.SetBullets(bullets);
         AddDuck();
     }
 
     // Update is called once per frame
     void Update () 
     {
-        if (IsTriggered())
+        if (GameInput.IsTriggered())
         {
-
             if (!isPlaying)
             {
                 HidePanels();
                 isPlaying = true;
                 Invoke("StartGame", 1);
             }
-
-            var start = theCamera.transform.position;
-            var end = start + theCamera.transform.forward * hitDistance;
-            var hitInfo = new RaycastHit();
-            var hit = Physics.Linecast(start, end, out hitInfo);
-
-            if (hit)
+            else // is playing
             {
-                var colliderHit = hitInfo.collider;
-                if (colliderHit.tag == "Duck")
+                var start = theCamera.transform.position;
+                var end = start + theCamera.transform.forward * hitDistance;
+                var hitInfo = new RaycastHit();
+                var hit = Physics.Linecast(start, end, out hitInfo);
+
+                if (hit)
                 {
-                    score++;
+                    var colliderHit = hitInfo.collider;
+                    if (colliderHit.tag == "Duck")
+                    {
+                        score++;
 
-                    var duck = hitInfo.collider.GetComponent<Duck>();
-                    duck.Hit();
-                    scorePanel.SetScore(score);
+                        bullets = 3;
+                        scorePanel.SetBullets(bullets);
+                        var duck = hitInfo.collider.GetComponent<Duck>();
+                        duck.Hit();
+                        scorePanel.SetScore(score);
 
-                    if (score < totalDucksPerRound)
-                        Invoke("AddDuck", 1);
-                    else
-                        EndGame();
+                        if (score < totalDucksPerRound)
+                            Invoke("AddDuck", 1);
+                        else
+                            EndGame();
+                    }
                 }
-            }
 
-            //if (bullets <= 0)
-            //    ShowGameOver();
+                //bullets--;
+                if (bullets <= 0)
+                {
+                    Invoke("ShowGameOver", 1);
+                }
+
+                //if (bullets <= 0)
+                //    ShowGameOver();
+            }
         }
     }
 
@@ -91,12 +103,20 @@ public class Controller : MonoBehaviour
 
         // play win music
         youWinPanel.SetActive(true);
+        youWinPanelScore.text = "Score: " + score;
     }
 
     private void ShowStartBtn()
     {
         HidePanels();
         startPanel.SetActive(true);
+    }
+
+    private void ShowGameOver()
+    {
+        isPlaying = false;
+        HidePanels();
+        gameOverPanel.SetActive(true);
     }
 
     private void HidePanels()
@@ -106,17 +126,8 @@ public class Controller : MonoBehaviour
         startPanel.SetActive(false);
     }
 
-
     private void OnGUI()
     {
         Debug.DrawLine(theCamera.transform.position, theCamera.transform.position + theCamera.transform.forward * 50);
-    }
-
-    private bool IsTriggered()
-    {
-        if (Input.GetMouseButton(0) || Input.touchCount > 0)
-            return true;
-        else
-            return false;
     }
 }

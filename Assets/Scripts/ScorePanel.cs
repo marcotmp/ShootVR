@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,5 +26,9 @@ public class ScorePanel : MonoBehaviour {
             var duck = duckIconContainer.GetChild(i);
             duck.gameObject.SetActive(i < score);
         }
+    }
+
+    public void SetBullets(int bullets)
+    {
     }
 }

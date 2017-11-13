@@ -1141,6 +1141,7 @@ MonoBehaviour:
   startPanel: {fileID: 1498098796}
   gameOverPanel: {fileID: 2126762308}
   youWinPanel: {fileID: 503693004}
+  youWinPanelScore: {fileID: 1998657628}
   hitDistance: 50
   totalDucksPerRound: 3
 --- !u!4 &1425235089
