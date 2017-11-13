@@ -20,7 +20,8 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-        
+        HidePanels();
+        startPanel.SetActive(true);
     }
 
     public void StartGame()
