@@ -8,9 +8,9 @@ public class Controller : MonoBehaviour
     public GameObject target;
     public GameObject theCamera;
     public ScorePanel scorePanel;
-    public GameObject startBtn;
-    public GameObject gameOver;
-    public GameObject youWin;
+    public GameObject startPanel;
+    public GameObject gameOverPanel;
+    public GameObject youWinPanel;
 
     public int hitDistance = 50;
     public int totalDucksPerRound = 10;
@@ -39,7 +39,7 @@ public class Controller : MonoBehaviour
 
             if (!isPlaying)
             {
-                startBtn.SetActive(false);
+                HidePanels();
                 isPlaying = true;
                 Invoke("StartGame", 1);
             }
@@ -66,6 +66,9 @@ public class Controller : MonoBehaviour
                         EndGame();
                 }
             }
+
+            //if (bullets <= 0)
+            //    ShowGameOver();
         }
     }
 
@@ -78,20 +81,30 @@ public class Controller : MonoBehaviour
 
     private void EndGame()
     {
-        // if score >= 10;
-        //ShowYouWin();
-        //if (bullets <= 0)
-        //ShowGameOver();
+        Invoke("ShowYouWin", 1);
+    }
 
+    private void ShowYouWin()
+    {
+        isPlaying = false;
 
-        Invoke("ShowStartBtn", 2);
+        // play win music
+        youWinPanel.SetActive(true);
     }
 
     private void ShowStartBtn()
     {
-        isPlaying = false;
-        startBtn.SetActive(true);
+        HidePanels();
+        startPanel.SetActive(true);
     }
+
+    private void HidePanels()
+    {
+        youWinPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        startPanel.SetActive(false);
+    }
+
 
     private void OnGUI()
     {
