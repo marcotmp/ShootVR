@@ -19,11 +19,11 @@ public class ScorePanel : MonoBehaviour {
     public void SetScore(int score)
     {
         if (score > duckIconContainer.childCount) score = duckIconContainer.childCount;
-               
-        for (var i = 0; i < score; i++)
+
+        for (var i = 0; i < duckIconContainer.childCount; i++)
         {
             var duck = duckIconContainer.GetChild(i);
-            duck.gameObject.SetActive(true);
+            duck.gameObject.SetActive(i < score);
         }
     }
 }

@@ -11,6 +11,11 @@ public class GameCamera : MonoBehaviour {
     private float rotX;
     private float rotY;
 	
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
 	void Update () {
 
         // unlock cursor

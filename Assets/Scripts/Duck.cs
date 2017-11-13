@@ -7,12 +7,14 @@ public class Duck : MonoBehaviour
 
     public Animator animator;
     public float fallingSpeed = 0.1f;
-    public float flySpeed = 0.1f;
+    public int flyMinSpeed = 8;
+    public int flyMaxSpeed = 10;
     public Vector3 topLeft;
     public Vector3 bottomRight;
 
     private DuckStates state;
     private Vector3 movement;
+    private float flySpeed;
 
     enum DuckStates
     {
@@ -29,7 +31,7 @@ public class Duck : MonoBehaviour
 
         print("state= " + state + " , movment= " + movement);
 
-        flySpeed *= Random.Range(1, 3);
+        flySpeed = Random.Range(flyMinSpeed, flyMaxSpeed);
     }
 
     // Update is called once per frame

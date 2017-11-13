@@ -15,12 +15,13 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     public void StartGame()
     {
         score = 0;
+        scorePanel.SetScore(score);
 
         AddDuck();
     }
@@ -38,7 +39,6 @@ public class Controller : MonoBehaviour
             if (hit)
             {
                 var colliderHit = hitInfo.collider;
-                Debug.Log(colliderHit.tag);
                 if (colliderHit.tag == "Duck")
                 {
                     score++;
@@ -54,7 +54,7 @@ public class Controller : MonoBehaviour
                 }
                 else if (colliderHit.tag == "StartDuck")
                 {
-                    colliderHit.gameObject.SetActive(false);
+                    colliderHit.gameObject.transform.parent.gameObject.SetActive(false);
 
                     Invoke("StartGame", 1);
                 }
