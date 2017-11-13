@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class Controller : MonoBehaviour 
 {
@@ -7,11 +8,15 @@ public class Controller : MonoBehaviour
     public GameObject target;
     public GameObject theCamera;
     public ScorePanel scorePanel;
+    public GameObject startBtn;
+    public GameObject gameOver;
+    public GameObject youWin;
+
     public int hitDistance = 50;
     public int totalDucksPerRound = 10;
-    public GameObject startBtn;
 
     private int score = 0;
+    private bool isPlaying = false;
 
     void Start()
     {
@@ -31,6 +36,14 @@ public class Controller : MonoBehaviour
     {
         if (IsTriggered())
         {
+
+            if (!isPlaying)
+            {
+                startBtn.SetActive(false);
+                isPlaying = true;
+                Invoke("StartGame", 1);
+            }
+
             var start = theCamera.transform.position;
             var end = start + theCamera.transform.forward * hitDistance;
             var hitInfo = new RaycastHit();
@@ -52,12 +65,6 @@ public class Controller : MonoBehaviour
                     else
                         EndGame();
                 }
-                else if (colliderHit.tag == "StartDuck")
-                {
-                    colliderHit.gameObject.transform.parent.gameObject.SetActive(false);
-
-                    Invoke("StartGame", 1);
-                }
             }
         }
     }
@@ -71,6 +78,18 @@ public class Controller : MonoBehaviour
 
     private void EndGame()
     {
+        // if score >= 10;
+        //ShowYouWin();
+        //if (bullets <= 0)
+        //ShowGameOver();
+
+
+        Invoke("ShowStartBtn", 2);
+    }
+
+    private void ShowStartBtn()
+    {
+        isPlaying = false;
         startBtn.SetActive(true);
     }
 
