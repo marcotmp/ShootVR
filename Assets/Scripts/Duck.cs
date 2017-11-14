@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Duck : MonoBehaviour
@@ -20,7 +19,8 @@ public class Duck : MonoBehaviour
     {
         Flying,
         Falling,
-        Hit
+        Hit,
+        FlyAway
     }
 
     // Use this for initialization
@@ -66,8 +66,10 @@ public class Duck : MonoBehaviour
                     Destroy(gameObject);
                 }
                 break;
+            case DuckStates.FlyAway:
+                transform.Translate(movement * flySpeed * Time.deltaTime);
+                break;
         }
-
     }
 
     public void Hit()
@@ -108,15 +110,15 @@ public class Duck : MonoBehaviour
         var nextPos = pos + movement;
 
         //Debug.Log("movement= " +movement 
-                 // + "\npos= " + pos 
-                 // + "\nnextPos= " + nextPos 
-                 // + "\ntopLeft= " + topLeft 
-                 // + "\nbottomRight= " + bottomRight
-                 // + "\nright=" + (movement.x > 0 && nextPos.x > bottomRight.x)
-                 // + "\nleft=" + (movement.x < 0 && nextPos.x < topLeft.x)
-                 // + "\ntop=" + (movement.y > 0 && nextPos.y > topLeft.y)
-                 // + "\nbottom=" + (movement.y < 0 && nextPos.y > bottomRight.y)
-                 //);
+        // + "\npos= " + pos 
+        // + "\nnextPos= " + nextPos 
+        // + "\ntopLeft= " + topLeft 
+        // + "\nbottomRight= " + bottomRight
+        // + "\nright=" + (movement.x > 0 && nextPos.x > bottomRight.x)
+        // + "\nleft=" + (movement.x < 0 && nextPos.x < topLeft.x)
+        // + "\ntop=" + (movement.y > 0 && nextPos.y > topLeft.y)
+        // + "\nbottom=" + (movement.y < 0 && nextPos.y > bottomRight.y)
+        //);
 
         //new Bounds().Contains(pos);
 
@@ -149,6 +151,15 @@ public class Duck : MonoBehaviour
         new Vector3(-0.5f, -1),
     };
 
+    public void FlyAway()
+    {
+        state = DuckStates.FlyAway;
+        movement = new Vector3(0, 1);
+        UpdateAnimator(movement);
+
+        Invoke("DestroySelf", 3);
+    }
+
     private void ChangeMovement()
     {
         var counter = 0;
@@ -166,13 +177,21 @@ public class Duck : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
 
 
+        UpdateAnimator(movement);
+    }
+
+    private void UpdateAnimator(Vector3 movement)
+    {
+
+        // UpdateAnimator();
+
         // if right or left
         if (movement.x != 0 && Mathf.Abs(movement.y) <= 0.5f)
         {
             animator.Play("FlyRight");
             //print("FlyRight");
-        }   
-        
+        }
+
 
         // if up
         else if (movement.x == 0 && movement.y == 1)
@@ -189,5 +208,10 @@ public class Duck : MonoBehaviour
         }
 
         //print("" + movement + "  " + "");
+    }
+
+    private void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }

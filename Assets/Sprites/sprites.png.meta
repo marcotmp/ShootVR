@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: a8f5a02c73e554060ad7968e3e799631
-timeCreated: 1510525281
+timeCreated: 1510627687
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -266,7 +266,7 @@ TextureImporter:
         x: 56
         y: 141
         width: 26
-        height: 17
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -843,6 +843,20 @@ TextureImporter:
         height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprites_47
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 149
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

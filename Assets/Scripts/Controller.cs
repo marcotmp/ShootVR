@@ -19,6 +19,7 @@ public class Controller : MonoBehaviour
     public GameObject startPanel;
     public GameObject gameOverPanel;
     public GameObject youWinPanel;
+    public Transform duckContainer;
     public Text youWinPanelScore;
 
     public int hitDistance = 50;
@@ -52,8 +53,8 @@ public class Controller : MonoBehaviour
                     HidePanels();
 
                     Invoke("AddDuck", 1);
-                    //Note: this code is recommended
-                    //Wait(1, AddDuck);
+                    //Note: the above code is not recommended because it uses reflection.
+
                     gameState = GameState.Playing;
 
                     Debug.Log("GameState.Start");
@@ -69,31 +70,49 @@ public class Controller : MonoBehaviour
                     var hitInfo = new RaycastHit();
                     var hit = Physics.Linecast(start, end, out hitInfo);
 
+                    bullets--;
+                    scorePanel.SetBullets(bullets);
+
                     if (hit)
                     {
                         var colliderHit = hitInfo.collider;
                         if (colliderHit.tag == "Duck")
                         {
                             score++;
-
-                            bullets = 3;
-                            scorePanel.SetBullets(bullets);
                             var duck = hitInfo.collider.GetComponent<Duck>();
                             duck.Hit();
                             scorePanel.SetScore(score);
 
                             if (score < totalDucksPerRound)
-                                Invoke("AddDuck", 1);
+                            {
+                                // reset bullets
+                                bullets = 3;
+                                scorePanel.SetBullets(bullets);
+
+                                Invoke("AddDuck", 1);    
+                            }
                             else
+                            {
+                                gameState = GameState.YouWin;
                                 Invoke("ShowYouWin", 1);
+                            }
                         }
                     }
-
-                    bullets--;
-                    if (bullets <= 0)
+                    else if (bullets <= 0)
                     {
-                        //Invoke("ShowGameOver", 1);
+                        gameState = GameState.GameOver;
+
+                        // tell ducks to fly away
+                        for (var i = 0; i < duckContainer.childCount; i++)
+                        {
+                            var duckInstance = duckContainer.GetChild(i);
+                            var duck = duckInstance.GetComponent<Duck>();
+                            duck.FlyAway();
+                        }
+
+                        Invoke("ShowGameOver", 1);
                     }
+
                 }
 
                 break;
@@ -121,8 +140,6 @@ public class Controller : MonoBehaviour
     private void ShowGameOver()
     {
         gameState = GameState.GameOver;
-
-        // tell ducks to fly away
 
         // cooldown for 3 seconds
         Invoke("ReadyToStart", 3);

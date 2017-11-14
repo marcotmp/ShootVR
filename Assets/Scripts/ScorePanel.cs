@@ -6,6 +6,7 @@ using UnityEngine;
 public class ScorePanel : MonoBehaviour {
 
     public Transform duckIconContainer;
+    public Transform bulletsContainer;
 
     private void Start()
     {
@@ -30,5 +31,12 @@ public class ScorePanel : MonoBehaviour {
 
     public void SetBullets(int bullets)
     {
+        if (bullets > bulletsContainer.childCount) bullets = bulletsContainer.childCount;
+
+        for (var i = 0; i < bulletsContainer.childCount; i++)
+        {
+            var bullet = bulletsContainer.GetChild(i);
+            bullet.gameObject.SetActive(i < bullets);
+        }
     }
 }
