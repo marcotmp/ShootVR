@@ -102,13 +102,7 @@ public class Controller : MonoBehaviour
                     {
                         gameState = GameState.GameOver;
 
-                        // tell ducks to fly away
-                        for (var i = 0; i < duckContainer.childCount; i++)
-                        {
-                            var duckInstance = duckContainer.GetChild(i);
-                            var duck = duckInstance.GetComponent<Duck>();
-                            duck.FlyAway();
-                        }
+                        FlyAway();
 
                         Invoke("ShowGameOver", 1);
                     }
@@ -123,7 +117,13 @@ public class Controller : MonoBehaviour
     {
         // create a duck in a random place
         var index = Random.Range(0, creators.Length);
-        creators[index].CreateDuck();
+        creators[0].CreateDuck();
+
+        //for (int i = 0; i < creators.Length; i++)
+        //{
+        //    creators[i].CreateDuck();
+        //    creators[i].CreateDuck();
+        //}
     }
 
     private void ShowYouWin()
@@ -133,6 +133,8 @@ public class Controller : MonoBehaviour
         // play win music
         youWinPanel.SetActive(true);
         youWinPanelScore.text = "Score: " + score;
+
+        FlyAway();
 
         Invoke("ReadyToStart", 2);
     }
@@ -162,7 +164,19 @@ public class Controller : MonoBehaviour
         startPanel.SetActive(false);
     }
 
-    private void OnGUI()
+    private void FlyAway()
+    {
+        // tell ducks to fly away
+        for (var i = 0; i < duckContainer.childCount; i++)
+        {
+            var duckInstance = duckContainer.GetChild(i);
+            var duck = duckInstance.GetComponent<Duck>();
+            duck.FlyAway();
+        }
+
+    }
+
+    void OnDrawGizmos()
     {
         Debug.DrawLine(theCamera.transform.position, theCamera.transform.position + theCamera.transform.forward * 50);
     }

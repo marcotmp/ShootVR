@@ -21,4 +21,10 @@ public class DuckCreator : MonoBehaviour {
         duck.topLeft = topLeft.position;
         duck.bottomRight = bottomRight.position;
     }
+
+    private void OnDrawGizmos()
+    {
+        var size = topLeft.position - bottomRight.position;
+        Gizmos.DrawWireCube(transform.position, size);
+    }
 }

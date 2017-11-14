@@ -120,7 +120,9 @@ public class Duck : MonoBehaviour
         // + "\nbottom=" + (movement.y < 0 && nextPos.y > bottomRight.y)
         //);
 
-        //new Bounds().Contains(pos);
+        var bound = new Bounds(bottomRight, topLeft);
+        if (bound.Contains(pos)) Debug.Log("Is in");
+        else Debug.Log("Is out");
 
         // x movement
         if (movement.x > 0 && nextPos.x > bottomRight.x) return false;
