@@ -29,7 +29,7 @@ public class Duck : MonoBehaviour
         state = DuckStates.Flying;
         ChangeMovement();
 
-        print("state= " + state + " , movment= " + movement);
+        //print("state= " + state + " , movment= " + movement);
 
         flySpeed = Random.Range(flyMinSpeed, flyMaxSpeed);
     }
@@ -170,7 +170,7 @@ public class Duck : MonoBehaviour
         if (movement.x != 0 && Mathf.Abs(movement.y) <= 0.5f)
         {
             animator.Play("FlyRight");
-            print("FlyRight");
+            //print("FlyRight");
         }   
         
 
@@ -179,13 +179,13 @@ public class Duck : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
             animator.Play("FlyUp");
-            print("FlyUp");
+            //print("FlyUp");
         }
 
         if (Mathf.Abs(movement.y) == 1 && Mathf.Abs(movement.x) == 0.5f)
         {
             animator.Play("FlyUpRight");
-            print("FlyUpRight");
+            //print("FlyUpRight");
         }
 
         //print("" + movement + "  " + "");
