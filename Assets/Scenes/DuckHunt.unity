@@ -1315,7 +1315,7 @@ MonoBehaviour:
   youWinPanel: {fileID: 503693004}
   youWinPanelScore: {fileID: 1998657628}
   hitDistance: 50
-  totalDucksPerRound: 5
+  totalDucksPerRound: 3
 --- !u!4 &1425235089
 Transform:
   m_ObjectHideFlags: 0
