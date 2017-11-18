@@ -7,6 +7,7 @@ public class ScorePanel : MonoBehaviour {
 
     public Transform duckIconContainer;
     public Transform bulletsContainer;
+    public Transform scopeBulletsContainer;
 
     private void Start()
     {
@@ -31,12 +32,19 @@ public class ScorePanel : MonoBehaviour {
 
     public void SetBullets(int bullets)
     {
-        if (bullets > bulletsContainer.childCount) bullets = bulletsContainer.childCount;
+        SetBullets(bulletsContainer, bullets);
+        SetBullets(scopeBulletsContainer, bullets);
+    }
 
-        for (var i = 0; i < bulletsContainer.childCount; i++)
+    private void SetBullets(Transform container, int bullets)
+    {
+        if (bullets > container.childCount) bullets = container.childCount;
+
+        for (var i = 0; i < container.childCount; i++)
         {
-            var bullet = bulletsContainer.GetChild(i);
+            var bullet = container.GetChild(i);
             bullet.gameObject.SetActive(i < bullets);
         }
     }
+
 }

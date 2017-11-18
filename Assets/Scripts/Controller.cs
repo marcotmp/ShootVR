@@ -8,6 +8,7 @@ public class Controller : MonoBehaviour
     {
         Start,
         Playing,
+        Scoring,
         GameOver,
         YouWin
     }
@@ -19,7 +20,6 @@ public class Controller : MonoBehaviour
     public GameObject startPanel;
     public GameObject gameOverPanel;
     public GameObject youWinPanel;
-    public Transform duckContainer;
     public Text youWinPanelScore;
 
     public int hitDistance = 50;
@@ -46,16 +46,19 @@ public class Controller : MonoBehaviour
                 {
 
                     score = 0;
-                    bullets = 3;
                     scorePanel.SetScore(score);
-                    scorePanel.SetBullets(bullets);
-
                     HidePanels();
 
-                    Invoke("AddDuck", 1);
-                    //Note: the above code is not recommended because it uses reflection.
+                    //bullets = 3;
+                    //scorePanel.SetBullets(bullets);
 
-                    gameState = GameState.Playing;
+                    ////Note: this code is not recommended because it uses reflection.
+                    //Invoke("AddDuck", 1);
+
+                    //gameState = GameState.Playing;
+
+                    //Note: this code is not recommended because it uses reflection.
+                    Invoke("StartRound", 1);   
 
                     Debug.Log("GameState.Start");
                 }
@@ -85,11 +88,9 @@ public class Controller : MonoBehaviour
 
                             if (score < totalDucksPerRound)
                             {
-                                // reset bullets
-                                bullets = 3;
-                                scorePanel.SetBullets(bullets);
+                                gameState = GameState.Scoring;
 
-                                Invoke("AddDuck", 1);    
+                                Invoke("StartRound", 1);    
                             }
                             else
                             {
@@ -113,17 +114,20 @@ public class Controller : MonoBehaviour
         }
     }
 
+    private void StartRound()
+    {
+        // reset bullets
+        bullets = 3;
+        scorePanel.SetBullets(bullets);
+        AddDuck();
+        gameState = GameState.Playing;
+    }
+
     private void AddDuck()
     {
         // create a duck in a random place
         var index = Random.Range(0, creators.Length);
-        creators[0].CreateDuck();
-
-        //for (int i = 0; i < creators.Length; i++)
-        //{
-        //    creators[i].CreateDuck();
-        //    creators[i].CreateDuck();
-        //}
+        creators[index].CreateDuck();
     }
 
     private void ShowYouWin()
@@ -167,13 +171,17 @@ public class Controller : MonoBehaviour
     private void FlyAway()
     {
         // tell ducks to fly away
-        for (var i = 0; i < duckContainer.childCount; i++)
+        for (var index = 0; index < creators.Length; index++)
         {
-            var duckInstance = duckContainer.GetChild(i);
-            var duck = duckInstance.GetComponent<Duck>();
-            duck.FlyAway();
+            var duckContainer = creators[index].transform;
+            for (var i = 0; i < duckContainer.childCount; i++)
+            {
+                var duckInstance = duckContainer.GetChild(i);
+                var duck = duckInstance.GetComponent<Duck>();
+                if (duck != null)
+                    duck.FlyAway();
+            }
         }
-
     }
 
     void OnDrawGizmos()

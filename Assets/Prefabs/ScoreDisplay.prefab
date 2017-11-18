@@ -553,6 +553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duckIconContainer: {fileID: 224743367712940540}
   bulletsContainer: {fileID: 224388186569854968}
+  scopeBulletsContainer: {fileID: 0}
 --- !u!114 &114456068917694788
 MonoBehaviour:
   m_ObjectHideFlags: 1

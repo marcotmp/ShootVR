@@ -8,8 +8,8 @@ public class Duck : MonoBehaviour
     public float fallingSpeed = 0.1f;
     public int flyMinSpeed = 8;
     public int flyMaxSpeed = 10;
-    public Vector3 topLeft;
-    public Vector3 bottomRight;
+    public Transform topLeft;
+    public Transform bottomRight;
 
     private DuckStates state;
     private Vector3 movement;
@@ -106,34 +106,49 @@ public class Duck : MonoBehaviour
     {
         // check if can move based on position and movement
 
-        var pos = transform.position;
+        var pos = transform.localPosition;
         var nextPos = pos + movement;
 
         //Debug.Log("movement= " +movement 
-        // + "\npos= " + pos 
-        // + "\nnextPos= " + nextPos 
-        // + "\ntopLeft= " + topLeft 
-        // + "\nbottomRight= " + bottomRight
-        // + "\nright=" + (movement.x > 0 && nextPos.x > bottomRight.x)
-        // + "\nleft=" + (movement.x < 0 && nextPos.x < topLeft.x)
-        // + "\ntop=" + (movement.y > 0 && nextPos.y > topLeft.y)
-        // + "\nbottom=" + (movement.y < 0 && nextPos.y > bottomRight.y)
+        //    + "\npos= " + pos 
+        //    + "\nnextPos= " + nextPos 
+        //    + "\ntopLeft= " + topLeft 
+        //    + "\nbottomRight= " + bottomRight
+        //    + "\nright=" + (movement.x > 0 && nextPos.x > bottomRight.localPosition.x)
+        //    + "\nleft=" + (movement.x < 0 && nextPos.x < topLeft.localPosition.x)
+        //    + "\ntop=" + (movement.y > 0 && nextPos.y > topLeft.localPosition.y)
+        //    + "\nbottom=" + (movement.y < 0 && nextPos.y > bottomRight.localPosition.y)
         //);
 
-        var bound = new Bounds(bottomRight, topLeft);
-        if (bound.Contains(pos)) Debug.Log("Is in");
-        else Debug.Log("Is out");
+        //var bound = new Bounds(bottomRight, topLeft);
+        //if (bound.Contains(pos)) Debug.Log("Is in");
+        //else Debug.Log("Is out");
+
+        print(
+            "pos" + transform.position
+            + " rot" + transform.rotation
+            + " lpos" + transform.localPosition
+            + " lrot" + transform.localRotation
+            + "\n top left pos" + topLeft.position 
+              + "\n lpos" + topLeft.localPosition
+              + "\n rot" + topLeft.rotation
+              + "\n lrot" + topLeft.localRotation
+             );
 
         // x movement
-        if (movement.x > 0 && nextPos.x > bottomRight.x) return false;
-        else if (movement.x < 0 && nextPos.x < topLeft.x) return false;
+        if (movement.x > 0 && nextPos.x > bottomRight.localPosition.x) return false;
+        else if (movement.x < 0 && nextPos.x < topLeft.localPosition.x) return false;
 
         // y movement
-        if (movement.y > 0 && nextPos.y > topLeft.y) return false;
-        else if (movement.y < 0 && nextPos.y < bottomRight.y) return false;
+        if (movement.y > 0 && nextPos.y > topLeft.localPosition.y) return false;
+        else if (movement.y < 0 && nextPos.y < bottomRight.localPosition.y) return false;
 
         return true;
     }
+    /*
+
+
+    */
 
     private List<Vector3> movementList = new List<Vector3>() {
         new Vector3(1, 0),
