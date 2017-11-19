@@ -10,12 +10,19 @@ public class DuckCreator : MonoBehaviour {
 
 	public void CreateDuck()
     {
-        var duckInstance = Instantiate(duckPrefab, transform.position, transform.rotation);
+        // calculate random positions
+        var position = new Vector3();
+        position.x = Random.Range(topLeft.position.x, bottomRight.position.x);
+        position.y = bottomRight.position.y;
+        position.z = transform.position.z;
+
+        var duckInstance = Instantiate(duckPrefab, position, transform.rotation);
         duckInstance.transform.parent = transform;
 
         // make sure the instance is active
         duckInstance.SetActive(true);
 
+        // set movement limits limits
         var duck = duckInstance.GetComponent<Duck>();
         duck.topLeft = topLeft;
         duck.bottomRight = bottomRight;

@@ -82,7 +82,7 @@ public class Controller : MonoBehaviour
                         if (colliderHit.tag == "Duck")
                         {
                             score++;
-                            var duck = hitInfo.collider.GetComponent<Duck>();
+                            var duck = colliderHit.GetComponent<Duck>();
                             duck.Hit();
                             scorePanel.SetScore(score);
 

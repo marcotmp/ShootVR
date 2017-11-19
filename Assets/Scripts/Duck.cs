@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Duck : MonoBehaviour
 {
-
     public Animator animator;
     public float fallingSpeed = 0.1f;
     public int flyMinSpeed = 8;
@@ -14,6 +13,20 @@ public class Duck : MonoBehaviour
     private DuckStates state;
     private Vector3 movement;
     private float flySpeed;
+
+    private List<Vector3> movementList = new List<Vector3>() {
+        new Vector3(1, 0),  // Right
+        new Vector3(-1, 0), // Left
+        new Vector3(0, 1),  // Up
+        new Vector3(1, 0.5f), // rightUp - 30
+        new Vector3(0.5f, 1), // rightup - 60
+        new Vector3(-1, 0.5f), // leftUp - 30
+        new Vector3(-0.5f, 1), // leftUp - 60
+        new Vector3(1, -0.5f), // rightDown - 30
+        new Vector3(0.5f, -1), // rightDown - 60
+        new Vector3(-1, -0.5f), // left-down - 30
+        new Vector3(-0.5f, -1), // left-down - 60
+    };
 
     enum DuckStates
     {
@@ -29,30 +42,20 @@ public class Duck : MonoBehaviour
         state = DuckStates.Flying;
         ChangeMovement();
 
-        //print("state= " + state + " , movment= " + movement);
-
         flySpeed = Random.Range(flyMinSpeed, flyMaxSpeed);
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {  
         switch (state)
         {
             case DuckStates.Flying:
-
-                //transform.position += movement * flySpeed * Time.deltaTime;
                 transform.Translate(movement * flySpeed * Time.deltaTime);
-
-                //print("state= " + state + " , movment= " + movement);
-                // check if it is time to select another move or if collide with borders
-
+                
                 var time = TimeElapsed();
                 var canMove = CanMove();
-
-                //if (!canMove) print("Can't move " + canMove);
-
-                //if (time)// || !CanMove())
+                
                 if (!canMove || time)
                     ChangeMovement();
 
@@ -60,11 +63,11 @@ public class Duck : MonoBehaviour
             case DuckStates.Hit: break;
             case DuckStates.Falling:
                 transform.position -= Vector3.up * fallingSpeed;
+                
                 // if touch ground, destroy object
                 if (transform.position.y <= 0)
-                {
                     Destroy(gameObject);
-                }
+
                 break;
             case DuckStates.FlyAway:
                 transform.Translate(movement * flySpeed * Time.deltaTime);
@@ -109,32 +112,6 @@ public class Duck : MonoBehaviour
         var pos = transform.localPosition;
         var nextPos = pos + movement;
 
-        //Debug.Log("movement= " +movement 
-        //    + "\npos= " + pos 
-        //    + "\nnextPos= " + nextPos 
-        //    + "\ntopLeft= " + topLeft 
-        //    + "\nbottomRight= " + bottomRight
-        //    + "\nright=" + (movement.x > 0 && nextPos.x > bottomRight.localPosition.x)
-        //    + "\nleft=" + (movement.x < 0 && nextPos.x < topLeft.localPosition.x)
-        //    + "\ntop=" + (movement.y > 0 && nextPos.y > topLeft.localPosition.y)
-        //    + "\nbottom=" + (movement.y < 0 && nextPos.y > bottomRight.localPosition.y)
-        //);
-
-        //var bound = new Bounds(bottomRight, topLeft);
-        //if (bound.Contains(pos)) Debug.Log("Is in");
-        //else Debug.Log("Is out");
-
-        print(
-            "pos" + transform.position
-            + " rot" + transform.rotation
-            + " lpos" + transform.localPosition
-            + " lrot" + transform.localRotation
-            + "\n top left pos" + topLeft.position 
-              + "\n lpos" + topLeft.localPosition
-              + "\n rot" + topLeft.rotation
-              + "\n lrot" + topLeft.localRotation
-             );
-
         // x movement
         if (movement.x > 0 && nextPos.x > bottomRight.localPosition.x) return false;
         else if (movement.x < 0 && nextPos.x < topLeft.localPosition.x) return false;
@@ -145,31 +122,12 @@ public class Duck : MonoBehaviour
 
         return true;
     }
-    /*
-
-
-    */
-
-    private List<Vector3> movementList = new List<Vector3>() {
-        new Vector3(1, 0),
-        new Vector3(-1, 0),
-        new Vector3(0, 1),
-
-        new Vector3(1, 0.5f),
-        new Vector3(0.5f, 1),
-
-        new Vector3(-1, 0.5f),
-        new Vector3(-0.5f, 1),
-
-        new Vector3(1, -0.5f),
-        new Vector3(0.5f, -1),
-
-        new Vector3(-1, -0.5f),
-        new Vector3(-0.5f, -1),
-    };
 
     public void FlyAway()
     {
+        // can't fly away if wasn't flying 
+        if (state != DuckStates.Flying) return;
+
         state = DuckStates.FlyAway;
         movement = new Vector3(0, 1);
         UpdateAnimator(movement);
@@ -184,7 +142,6 @@ public class Duck : MonoBehaviour
         {
             counter++;
             var val = Random.Range(0, movementList.Count);
-            //print("Selecting " + val);
             movement = movementList[val];
         }
 
@@ -199,32 +156,20 @@ public class Duck : MonoBehaviour
 
     private void UpdateAnimator(Vector3 movement)
     {
-
-        // UpdateAnimator();
-
-        // if right or left
         if (movement.x != 0 && Mathf.Abs(movement.y) <= 0.5f)
         {
             animator.Play("FlyRight");
-            //print("FlyRight");
         }
-
-
-        // if up
         else if (movement.x == 0 && movement.y == 1)
         {
             transform.localScale = new Vector3(1, 1, 1);
             animator.Play("FlyUp");
-            //print("FlyUp");
         }
 
         if (Mathf.Abs(movement.y) == 1 && Mathf.Abs(movement.x) == 0.5f)
         {
             animator.Play("FlyUpRight");
-            //print("FlyUpRight");
         }
-
-        //print("" + movement + "  " + "");
     }
 
     private void DestroySelf()
