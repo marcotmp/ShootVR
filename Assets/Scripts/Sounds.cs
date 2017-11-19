@@ -58,4 +58,10 @@ public class Sounds : MonoBehaviour
         audioSource.clip = startRoundSound;
         audioSource.Play();
     }
+
+    public void PlayQuack()
+    {
+        audioSource.clip = quackSound;
+        audioSource.Play();
+    }
 }

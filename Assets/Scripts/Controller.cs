@@ -49,6 +49,8 @@ public class Controller : MonoBehaviour
                     scorePanel.SetScore(score);
                     HidePanels();
 
+                    sounds.PlayStartRound();
+
                     //Note: this code is not recommended because it uses reflection.
                     Invoke("StartRound", 1);   
 
@@ -163,7 +165,7 @@ public class Controller : MonoBehaviour
 
     private void ReadyToStart()
     {
-        sounds.PlayStartRound();
+        sounds.PlayQuack();
 
         gameState = GameState.Start;
         HidePanels();
