@@ -5,6 +5,7 @@ public class Controller : MonoBehaviour
 {
     enum GameState
     {
+        Idle,
         Start,
         Playing,
         Scoring,
@@ -51,7 +52,7 @@ public class Controller : MonoBehaviour
                     //Note: this code is not recommended because it uses reflection.
                     Invoke("StartRound", 1);   
 
-                    Debug.Log("GameState.Start");
+                    gameState = GameState.Idle;
                 }
 
                 break;
