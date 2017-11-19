@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.XR;
 
 public class Controller : MonoBehaviour 
 {
@@ -44,18 +43,9 @@ public class Controller : MonoBehaviour
             case GameState.Start:
                 if (GameInput.IsTriggered())
                 {
-
                     score = 0;
                     scorePanel.SetScore(score);
                     HidePanels();
-
-                    //bullets = 3;
-                    //scorePanel.SetBullets(bullets);
-
-                    ////Note: this code is not recommended because it uses reflection.
-                    //Invoke("AddDuck", 1);
-
-                    //gameState = GameState.Playing;
 
                     //Note: this code is not recommended because it uses reflection.
                     Invoke("StartRound", 1);   
@@ -119,7 +109,9 @@ public class Controller : MonoBehaviour
         // reset bullets
         bullets = 3;
         scorePanel.SetBullets(bullets);
+        // add duck
         AddDuck();
+        // set playing state
         gameState = GameState.Playing;
     }
 
