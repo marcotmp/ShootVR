@@ -24,6 +24,8 @@ public class Controller : MonoBehaviour
     public int hitDistance = 50;
     public int totalDucksPerRound = 10;
 
+    public Sounds sounds;
+
     private int score = 0;
     private int bullets = 3;
 
@@ -31,8 +33,7 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-        HidePanels();
-        startPanel.SetActive(true);
+        ReadyToStart();
     }
 
     // Update is called once per frame
@@ -58,6 +59,8 @@ public class Controller : MonoBehaviour
             case GameState.Playing:
                 if (GameInput.IsTriggered())
                 {
+                    sounds.PlayShoot();
+
                     var start = theCamera.transform.position;
                     var end = start + theCamera.transform.forward * hitDistance;
                     var hitInfo = new RaycastHit();
@@ -74,12 +77,15 @@ public class Controller : MonoBehaviour
                             score++;
                             var duck = colliderHit.GetComponent<Duck>();
                             duck.Hit();
+                            sounds.StopFly();
+                            //sounds.PlayFall();
                             scorePanel.SetScore(score);
+
+                            sounds.PlayScoring();
 
                             if (score < totalDucksPerRound)
                             {
                                 gameState = GameState.Scoring;
-
                                 Invoke("StartRound", 1);    
                             }
                             else
@@ -94,6 +100,9 @@ public class Controller : MonoBehaviour
                         gameState = GameState.GameOver;
 
                         FlyAway();
+
+                        sounds.StopFly();
+                        sounds.PlayLose();
 
                         Invoke("ShowGameOver", 1);
                     }
@@ -113,6 +122,7 @@ public class Controller : MonoBehaviour
         AddDuck();
         // set playing state
         gameState = GameState.Playing;
+
     }
 
     private void AddDuck()
@@ -120,6 +130,8 @@ public class Controller : MonoBehaviour
         // create a duck in a random place
         var index = Random.Range(0, creators.Length);
         creators[index].CreateDuck();
+
+        sounds.PlayFly();
     }
 
     private void ShowYouWin()
@@ -129,6 +141,8 @@ public class Controller : MonoBehaviour
         // play win music
         youWinPanel.SetActive(true);
         youWinPanelScore.text = "Score: " + score;
+
+        sounds.PlayWin();
 
         FlyAway();
 
@@ -148,6 +162,8 @@ public class Controller : MonoBehaviour
 
     private void ReadyToStart()
     {
+        sounds.PlayStartRound();
+
         gameState = GameState.Start;
         HidePanels();
         startPanel.SetActive(true);
