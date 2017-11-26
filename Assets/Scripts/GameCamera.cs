@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class GameCamera : MonoBehaviour {
 
+    public int lineLength = 50;
+
     private float rotX;
     private float rotY;
 	
@@ -39,4 +41,9 @@ public class GameCamera : MonoBehaviour {
             transform.rotation = Quaternion.Euler(-rotY, rotX, 0f);
         }
 	}
+    
+    void OnDrawGizmos()
+    {
+        Debug.DrawLine(transform.position, transform.position + transform.forward * lineLength);
+    }
 }

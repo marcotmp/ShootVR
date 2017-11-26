@@ -37,7 +37,6 @@ public class Controller : MonoBehaviour
         ReadyToStart();
     }
 
-    // Update is called once per frame
     void Update () 
     {
         switch (gameState)
@@ -52,7 +51,7 @@ public class Controller : MonoBehaviour
                     sounds.PlayStartRound();
 
                     //Note: this code is not recommended because it uses reflection.
-                    Invoke("StartRound", 1);   
+                    Invoke("StartRound", 1);
 
                     gameState = GameState.Idle;
                 }
@@ -193,10 +192,5 @@ public class Controller : MonoBehaviour
                     duck.FlyAway();
             }
         }
-    }
-
-    void OnDrawGizmos()
-    {
-        Debug.DrawLine(theCamera.transform.position, theCamera.transform.position + theCamera.transform.forward * 50);
     }
 }
