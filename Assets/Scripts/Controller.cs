@@ -14,7 +14,6 @@ public class Controller : MonoBehaviour
     }
 
     public DuckCreator[] creators;
-    public GameObject target;
     public GameObject theCamera;
     public ScorePanel scorePanel;
     public GameObject startPanel;
@@ -77,12 +76,12 @@ public class Controller : MonoBehaviour
                         if (colliderHit.tag == "Duck")
                         {
                             score++;
+
                             var duck = colliderHit.GetComponent<Duck>();
                             duck.Hit();
                             sounds.StopFly();
-                            //sounds.PlayFall();
-                            scorePanel.SetScore(score);
 
+                            scorePanel.SetScore(score);
                             sounds.PlayScoring();
 
                             if (score < totalDucksPerRound)

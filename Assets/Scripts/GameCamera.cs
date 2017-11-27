@@ -9,23 +9,24 @@ using UnityEngine;
 public class GameCamera : MonoBehaviour {
 
     public int lineLength = 50;
-
-    private float rotX;
-    private float rotY;
+    public float rotationSpeed = 4;
+    private float rotX = 0;
+    private float rotY = 0;
 	
     void Start()
     {
+        // lock cursor at the beginning
         Cursor.lockState = CursorLockMode.Locked;
     }
 
 	void Update () {
-
-        // unlock cursor
+        
+        // lock on mouse click
         if (Input.GetMouseButton(0) && Cursor.lockState == CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape)) // unlock cursor on press escape key
         {
             Cursor.lockState = CursorLockMode.None;
         }
@@ -35,8 +36,8 @@ public class GameCamera : MonoBehaviour {
         {
             var mouseX = Input.GetAxis("Mouse X");
             var mouseY = Input.GetAxis("Mouse Y");
-            rotX += mouseX * 4;
-            rotY += mouseY * 4;
+            rotX += mouseX * rotationSpeed;
+            rotY += mouseY * rotationSpeed;
 
             transform.rotation = Quaternion.Euler(-rotY, rotX, 0f);
         }
