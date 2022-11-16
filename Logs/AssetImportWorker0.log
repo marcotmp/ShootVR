@@ -1,0 +1,233 @@
+Using pre-set license
+Built from '2021.3/staging' branch; Version is '2021.3.11f1 (0a5ca18544bf) revision 679073'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19044) 64bit Core' Language: 'en' Physical Memory: 32173 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2021.3.11f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Dev/Repositories/ShootVR
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+52151
+Successfully changed project path to: C:/Dev/Repositories/ShootVR
+C:/Dev/Repositories/ShootVR
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Refreshing native plugins compatible for Editor in 569.77 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.3.11f1 (0a5ca18544bf)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Dev/Repositories/ShootVR/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 2060 (ID=0x1f15)
+    Vendor:   NVIDIA
+    VRAM:     5980 MB
+    Driver:   30.0.15.1278
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56256
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.009224 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 66.24 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.759 seconds
+Domain Reload Profiling:
+	ReloadAssembly (759ms)
+		BeginReloadAssembly (81ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (549ms)
+			LoadAssemblies (78ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (111ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (35ms)
+			SetupLoadedEditorAssemblies (343ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (85ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (66ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (135ms)
+				ProcessInitializeOnLoadMethodAttributes (55ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Android Extension - Scanning For ADB Devices 732 ms
+Registered in 1.069827 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Refreshing native plugins compatible for Editor in 66.46 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Package Manager log level set to [2]
+Mono: successfully reloaded assembly
+- Completed reload, in  5.743 seconds
+Domain Reload Profiling:
+	ReloadAssembly (5744ms)
+		BeginReloadAssembly (113ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (6ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (22ms)
+		EndReloadAssembly (5466ms)
+			LoadAssemblies (3202ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (684ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (86ms)
+			SetupLoadedEditorAssemblies (1415ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (15ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (67ms)
+				BeforeProcessingInitializeOnLoad (97ms)
+				ProcessInitializeOnLoadAttributes (312ms)
+				ProcessInitializeOnLoadMethodAttributes (914ms)
+				AfterProcessingInitializeOnLoad (9ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.08 seconds
+Refreshing native plugins compatible for Editor in 1.78 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3008 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 81 unused Assets / (57.5 KB). Loaded Objects now: 3431.
+Memory consumption went from 112.4 MB to 112.4 MB.
+Total: 7.269200 ms (FindLiveObjects: 0.433600 ms CreateObjectMapping: 0.131900 ms MarkObjects: 6.575200 ms  DeleteObjects: 0.126700 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 76011.894426 seconds.
+  path: Packages/com.unity.collab-proxy/package.json
+  artifactKey: Guid(743fda8c4b219c8429fb5a77ede1c879) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.collab-proxy/package.json using Guid(743fda8c4b219c8429fb5a77ede1c879) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8984c24a74a7f0682735378a0d8c311a') in 0.032634 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 240.563937 seconds.
+  path: Assets/Models/nintendo-zapper/textures/Zapper_v2.5_Cuerpo_AlbedoTransparency.png
+  artifactKey: Guid(6d7c578e0e83a724c9b4ba8c5d690b4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/nintendo-zapper/textures/Zapper_v2.5_Cuerpo_AlbedoTransparency.png using Guid(6d7c578e0e83a724c9b4ba8c5d690b4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b786134c4875949ce182cafc9e5cbff') in 0.061912 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Models/nintendo-zapper/textures/Zapper_v2.5_Gatillo_AlbedoTransparency.png
+  artifactKey: Guid(024051454f478394f9f81158d0210923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/nintendo-zapper/textures/Zapper_v2.5_Gatillo_AlbedoTransparency.png using Guid(024051454f478394f9f81158d0210923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52429d9015f9cb3fb58b19f0b9391d5b') in 0.019643 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Models/nintendo-zapper/textures/Zapper_v2.5_Top_Normal.png
+  artifactKey: Guid(127d372be9cf506429572bfdb0da1e5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/nintendo-zapper/textures/Zapper_v2.5_Top_Normal.png using Guid(127d372be9cf506429572bfdb0da1e5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b8ec3c485a621e9b1d388217db7c0b0') in 0.016754 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Models/nintendo-zapper/textures/Zapper_v2.5_Punta_AlbedoTransparency.png
+  artifactKey: Guid(9ac6c44dfd73a104d983de4212d178b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/nintendo-zapper/textures/Zapper_v2.5_Punta_AlbedoTransparency.png using Guid(9ac6c44dfd73a104d983de4212d178b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22dcbcc5d4f1f0153cc7dd5fc8d4260c') in 0.024453 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/Models/nintendo-zapper/textures/Zapper_v2.5_Mango_AlbedoTransparency.png
+  artifactKey: Guid(1bdd8a82497803c4ebd5f3a448b873d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/nintendo-zapper/textures/Zapper_v2.5_Mango_AlbedoTransparency.png using Guid(1bdd8a82497803c4ebd5f3a448b873d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09755b9357ae3d7310a77bc8a4915107') in 0.020304 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.019605 seconds.
+  path: Assets/Models/nintendo-zapper/source/ZAPPER.rar
+  artifactKey: Guid(8e2f43b199e515541b99c9876d881985) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/nintendo-zapper/source/ZAPPER.rar using Guid(8e2f43b199e515541b99c9876d881985) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f72c7e434d6ed20aa4353621278dc0d') in 0.008908 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 48.664562 seconds.
+  path: Assets/Models/nintendo-zapper/source/ZAPPER/Zapper_Textures/Zapper_v2.5_Cuerpo_MetallicSmoothness.png
+  artifactKey: Guid(3e51de9f333ddd04992ae5c64132b82d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/nintendo-zapper/source/ZAPPER/Zapper_Textures/Zapper_v2.5_Cuerpo_MetallicSmoothness.png using Guid(3e51de9f333ddd04992ae5c64132b82d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57d8130a65e32ff1d4feb4310310295f') in 0.030010 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Models/nintendo-zapper/source/ZAPPER/Zapper_Textures/Zapper_v2.5_Punta_Normal.png
+  artifactKey: Guid(86fde7e9487c8b049bc141fec2bc0c78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/nintendo-zapper/source/ZAPPER/Zapper_Textures/Zapper_v2.5_Punta_Normal.png using Guid(86fde7e9487c8b049bc141fec2bc0c78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e099a381ffca308e46dbb9302f5c68e4') in 0.014854 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Models/nintendo-zapper/source/ZAPPER/Zapper_Textures/Zapper_v2.5_Gatillo_Normal.png
+  artifactKey: Guid(cc430826fa8bc3645b35303b983620ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/nintendo-zapper/source/ZAPPER/Zapper_Textures/Zapper_v2.5_Gatillo_Normal.png using Guid(cc430826fa8bc3645b35303b983620ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '51081394175d359a42e91cc3d767a1e0') in 0.017854 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000061 seconds.
+  path: Assets/Models/nintendo-zapper/source/ZAPPER/Zapper_Textures/Zapper_v2.5_Gatillo_MetallicSmoothness.png
+  artifactKey: Guid(0984a2dd5ba079c46bd8c40e250c72f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/nintendo-zapper/source/ZAPPER/Zapper_Textures/Zapper_v2.5_Gatillo_MetallicSmoothness.png using Guid(0984a2dd5ba079c46bd8c40e250c72f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c70ba0a94d0e07cb7c8c401d9b8c8b5') in 0.026029 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

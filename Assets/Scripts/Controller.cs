@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Controller : MonoBehaviour 
@@ -26,6 +27,8 @@ public class Controller : MonoBehaviour
 
     public Sounds sounds;
 
+    public InputAction shootAction;
+
     private int score = 0;
     private int bullets = 3;
 
@@ -33,7 +36,23 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
+        shootAction.performed += OnShoot;
         ReadyToStart();
+    }
+
+    private void OnDestroy()
+    {
+        shootAction.performed -= OnShoot;
+    }
+
+    private void OnEnable()
+    {
+        shootAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        shootAction.Disable();
     }
 
     void Update () 
@@ -41,7 +60,8 @@ public class Controller : MonoBehaviour
         switch (gameState)
         {
             case GameState.Start:
-                if (GameInput.IsTriggered())
+                //if (GameInput.IsTriggered())
+                if (shootAction.ReadValue<float>() > 0)
                 {
                     score = 0;
                     scorePanel.SetScore(score);
@@ -58,60 +78,72 @@ public class Controller : MonoBehaviour
                 break;
 
             case GameState.Playing:
-                if (GameInput.IsTriggered())
-                {
-                    sounds.PlayShoot();
+                //if (GameInput.IsTriggered())
 
-                    var start = theCamera.transform.position;
-                    var end = start + theCamera.transform.forward * hitDistance;
-                    var hitInfo = new RaycastHit();
-                    var hit = Physics.Linecast(start, end, out hitInfo);
-
-                    bullets--;
-                    scorePanel.SetBullets(bullets);
-
-                    if (hit)
-                    {
-                        var colliderHit = hitInfo.collider;
-                        if (colliderHit.tag == "Duck")
-                        {
-                            score++;
-
-                            var duck = colliderHit.GetComponent<Duck>();
-                            duck.Hit();
-                            sounds.StopFly();
-
-                            scorePanel.SetScore(score);
-                            sounds.PlayScoring();
-
-                            if (score < totalDucksPerRound)
-                            {
-                                gameState = GameState.Scoring;
-                                Invoke("StartRound", 1);    
-                            }
-                            else
-                            {
-                                gameState = GameState.YouWin;
-                                Invoke("ShowYouWin", 1);
-                            }
-                        }
-                    }
-                    else if (bullets <= 0)
-                    {
-                        gameState = GameState.GameOver;
-
-                        FlyAway();
-
-                        sounds.StopFly();
-                        sounds.PlayLose();
-
-                        Invoke("ShowGameOver", 1);
-                    }
-
-                }
+                //Shoot();
 
                 break;
         }
+    }
+
+    private void OnShoot(InputAction.CallbackContext obj)
+    {
+        if (gameState == GameState.Playing)
+        {
+            ProcessShoot();
+        }
+    }
+
+    public void ProcessShoot()
+    {
+        sounds.PlayShoot();
+
+        var start = theCamera.transform.position;
+        var end = start + theCamera.transform.forward * hitDistance;
+        var hitInfo = new RaycastHit();
+        var hit = Physics.Linecast(start, end, out hitInfo);
+
+        bullets--;
+        scorePanel.SetBullets(bullets);
+
+        if (hit)
+        {
+            var colliderHit = hitInfo.collider;
+            if (colliderHit.tag == "Duck")
+            {
+                score++;
+
+                var duck = colliderHit.GetComponent<Duck>();
+                duck.Hit();
+                sounds.StopFly();
+
+                scorePanel.SetScore(score);
+                sounds.PlayScoring();
+
+                if (score < totalDucksPerRound)
+                {
+                    gameState = GameState.Scoring;
+                    Invoke("StartRound", 1);
+                }
+                else
+                {
+                    gameState = GameState.YouWin;
+                    Invoke("ShowYouWin", 1);
+                }
+            }
+        }
+        else if (bullets <= 0)
+        {
+            gameState = GameState.GameOver;
+
+            FlyAway();
+
+            sounds.StopFly();
+            sounds.PlayLose();
+
+            Invoke("ShowGameOver", 1);
+        }
+        
     }
 
     private void StartRound()

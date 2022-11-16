@@ -8,3 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DuckHunt.unity
     guid: c9cdf5380db0447928e2ba47f46d43b3
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 8908d02cb8047234faffc2d06d8ad5be,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 7ece90d1841db1843836565a5354e98f,
+      type: 2}
